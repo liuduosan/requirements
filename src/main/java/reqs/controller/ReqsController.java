@@ -14,13 +14,13 @@ import java.util.List;
 @MapperScan("reqs.dao")
 public class ReqsController {
 
-    @Autowired
-    private RequirementMapper requirementMapper;
-//    /**
-//     *
-//     * @param requirement
-//     * @return 1-ok,0-error
-//     */
+//    @Autowired
+//    private RequirementMapper requirementMapper;
+    /**
+     *
+     * @param requirement
+     * @return 1-ok,0-error
+     */
 //    @PostMapping
 //    public int addReqs(Requirement requirement){
 //        return requirementMapper.insert(requirement);

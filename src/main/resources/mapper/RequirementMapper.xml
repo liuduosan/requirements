@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="reqs.dao.RequirementMapper" >
+  <resultMap id="BaseResultMap" type="reqs.vo.Requirement" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="short_desc" property="shortDesc" jdbcType="VARCHAR" />
+    <result column="detail" property="detail" jdbcType="VARCHAR" />
+    <result column="img" property="img" jdbcType="VARCHAR" />
+    <result column="dept" property="dept" jdbcType="CHAR" />
+    <result column="puter" property="puter" jdbcType="VARCHAR" />
+    <result column="connectType" property="connecttype" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, short_desc, detail, img, dept, puter, connectType
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="reqs.vo.RequirementExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from requirement
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from requirement
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from requirement
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="reqs.vo.RequirementExample" >
+    delete from requirement
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="reqs.vo.Requirement" >
+    insert into requirement (id, short_desc, detail, 
+      img, dept, puter, connectType
+      )
+    values (#{id,jdbcType=INTEGER}, #{shortDesc,jdbcType=VARCHAR}, #{detail,jdbcType=VARCHAR}, 
+      #{img,jdbcType=VARCHAR}, #{dept,jdbcType=CHAR}, #{puter,jdbcType=VARCHAR}, #{connecttype,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="reqs.vo.Requirement" >
+    insert into requirement
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="shortDesc != null" >
+        short_desc,
+      </if>
+      <if test="detail != null" >
+        detail,
+      </if>
+      <if test="img != null" >
+        img,
+      </if>
+      <if test="dept != null" >
+        dept,
+      </if>
+      <if test="puter != null" >
+        puter,
+      </if>
+      <if test="connecttype != null" >
+        connectType,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="shortDesc != null" >
+        #{shortDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="detail != null" >
+        #{detail,jdbcType=VARCHAR},
+      </if>
+      <if test="img != null" >
+        #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="dept != null" >
+        #{dept,jdbcType=CHAR},
+      </if>
+      <if test="puter != null" >
+        #{puter,jdbcType=VARCHAR},
+      </if>
+      <if test="connecttype != null" >
+        #{connecttype,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="reqs.vo.RequirementExample" resultType="java.lang.Integer" >
+    select count(*) from requirement
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update requirement
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.shortDesc != null" >
+        short_desc = #{record.shortDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.detail != null" >
+        detail = #{record.detail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.img != null" >
+        img = #{record.img,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dept != null" >
+        dept = #{record.dept,jdbcType=CHAR},
+      </if>
+      <if test="record.puter != null" >
+        puter = #{record.puter,jdbcType=VARCHAR},
+      </if>
+      <if test="record.connecttype != null" >
+        connectType = #{record.connecttype,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update requirement
+    set id = #{record.id,jdbcType=INTEGER},
+      short_desc = #{record.shortDesc,jdbcType=VARCHAR},
+      detail = #{record.detail,jdbcType=VARCHAR},
+      img = #{record.img,jdbcType=VARCHAR},
+      dept = #{record.dept,jdbcType=CHAR},
+      puter = #{record.puter,jdbcType=VARCHAR},
+      connectType = #{record.connecttype,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="reqs.vo.Requirement" >
+    update requirement
+    <set >
+      <if test="shortDesc != null" >
+        short_desc = #{shortDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="detail != null" >
+        detail = #{detail,jdbcType=VARCHAR},
+      </if>
+      <if test="img != null" >
+        img = #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="dept != null" >
+        dept = #{dept,jdbcType=CHAR},
+      </if>
+      <if test="puter != null" >
+        puter = #{puter,jdbcType=VARCHAR},
+      </if>
+      <if test="connecttype != null" >
+        connectType = #{connecttype,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="reqs.vo.Requirement" >
+    update requirement
+    set short_desc = #{shortDesc,jdbcType=VARCHAR},
+      detail = #{detail,jdbcType=VARCHAR},
+      img = #{img,jdbcType=VARCHAR},
+      dept = #{dept,jdbcType=CHAR},
+      puter = #{puter,jdbcType=VARCHAR},
+      connectType = #{connecttype,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

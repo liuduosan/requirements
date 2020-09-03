@@ -13,8 +13,9 @@ public class Main {
         System.out.println(1111111111);
         SqlSessionFactory sqlSessionFactory = Res.getSqlSessionFactory();
         SqlSession sqlSession = sqlSessionFactory.openSession();
-        Requirement requirement = sqlSession.selectOne("reqs.dao.RequirementMapper.selectByPrimaryKey",1);
-        System.out.println(requirement.getId());
-        System.out.println(22222222);
+        System.out.println(sqlSession.getClass());
+//        Requirement requirement = sqlSession.selectOne("reqs.dao.RequirementMapper.selectByPrimaryKey",1);
+//        System.out.println(requirement.getId());
+//        System.out.println(22222222);
     }
 }

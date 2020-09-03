@@ -8,17 +8,19 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class Res {
-    public static SqlSessionFactory getSqlSessionFactory(){
+
+    private static SqlSessionFactory sqlSessionFactory = null;
+    public static synchronized SqlSessionFactory getSqlSessionFactory(){
         String resource = "mybatis-config.xml";
         InputStream inputStream = null;
-        SqlSessionFactory sqlSessionFactory = null;
-        try {
-            inputStream = Resources.getResourceAsStream(resource);
-            sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-        } catch (IOException e) {
-            e.printStackTrace();
+        if(sqlSessionFactory == null) {
+            try {
+                inputStream = Resources.getResourceAsStream(resource);
+                sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-
         return sqlSessionFactory;
     }
 }

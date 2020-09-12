@@ -1,6 +1,7 @@
 package reqs.controller;
 
 //import org.mybatis.spring.annotation.MapperScan;
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.*;
@@ -22,33 +23,41 @@ public class ReqsController {
      * @param requirement
      * @return
      */
-    @PostMapping(value="/addReqs")
+    @PostMapping(value="/reqs/addReqs")
     public int addReqs(@RequestBody Requirement requirement){
 
-//        方式1
-        return Res.getSqlSessionFactory().openSession().insert("reqs.dao.RequirementMapper.insert",requirement);
-//        方式2
+//        方式1 原生
+        SqlSession sqlSession = Res.getSqlSessionFactory().openSession();
+        int result =  sqlSession.insert("reqs.dao.RequirementMapper.insert",requirement);
+
+        sqlSession.commit();
+
+//        方式2 框架
 //        return requirementMapper.insert(requirement);
+        return result;
     }
 
-    @GetMapping("/{puter}")
+    /**
+     * 根据提出人查找需求列表
+     * TODO 暂时没有做分页
+     * @param puter
+     * @return
+     */
+    @GetMapping("/reqs/{puter}")
     @ResponseBody
-    public Requirement  getReqsByPuter(@PathVariable String puter){
-//      方法1  TODO 还没写完；
-//        Res.getSqlSessionFactory().openSession().selectList("reqs.dao.RequirementMapper.")
+    public List<Requirement>  getReqsByPuter(@PathVariable String puter){
+//       方法1  原生
+        RequirementExample requirementExample = new RequirementExample();
 
-//        方法二
-//        RequirementExample example = new RequirementExample();
-//        RequirementExample.Criteria criteria = example.createCriteria();
-//        criteria.andPuterEqualTo(puter);
-//        List<Requirement> list =  requirementMapper.selectByExample(example);
-//        if(list.size()>0){
-//            return list.get(0);
-//        }else{
-//            return  null;
-//        }
+        requirementExample.createCriteria().andPuterEqualTo(puter);
+
+        List<Requirement> requirements = Res.getSqlSessionFactory().openSession().selectList("reqs.dao.RequirementMapper.selectByExample",requirementExample);
 
 
-        return  null;
+//        方法二  框架
+
+
+
+        return  requirements;
     }
 }

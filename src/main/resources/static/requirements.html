@@ -20,9 +20,35 @@
 		 	}
 		 	document.getElementById("tips").style.display = "none";
 		 }
+		 function loadXMLDoc()
+		{
+		var xmlhttp;
+		if (window.XMLHttpRequest)
+		  {// code for IE7+, Firefox, Chrome, Opera, Safari
+		  xmlhttp=new XMLHttpRequest();
+		  }
+		else
+		  {// code for IE6, IE5
+		  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		  }
+		xmlhttp.onreadystatechange=function()
+		  {
+		  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+			{
+			document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
+			}
+		  }
+		xmlhttp.open("POST","/reqs/addReqs",true);
+		xmlhttp.setRequestHeader("Content-type","application/json;charset=utf-8");
+		shortDesc = document.getElementById("shortDesc").value;
+		var data = "{\"shortDesc\":\""+shortDesc+"\"}"
+		console.log(data)
+		xmlhttp.send(data);
+		}
 	 </script>
  </head>
  <body>
+
   <div style="width:100%;">
   		<div><h2>需求反馈记录</h2></div>
 		<div><strong>需求简写：</strong><input id="shortDesc" type="text" name="" maxlength=10 ><br/>&nbsp;</div>
@@ -49,7 +75,8 @@
 			</select>&nbsp;<input  id="connectType" type="text" name=""><br/>&nbsp;
 			<div id="tips" style="color:red;display: none;">注意：您填写的微信号，必须关注“快洁帮”公众号，否则将无法接受消息通知</div>
 		</div>
-		
+		<div><input type="button" onclick="loadXMLDoc()"></div>
   </div>
+
  </body>
 </html>

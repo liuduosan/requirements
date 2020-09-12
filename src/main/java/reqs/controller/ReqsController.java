@@ -1,6 +1,6 @@
 package reqs.controller;
 
-import org.mybatis.spring.annotation.MapperScan;
+//import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +12,7 @@ import reqs.vo.RequirementExample;
 import java.util.List;
 
 @RestController("/reqs")
-@MapperScan("reqs.dao")
+//@MapperScan("reqs.dao")
 public class ReqsController {
 //    方式2
 //    @Autowired
@@ -22,8 +22,8 @@ public class ReqsController {
      * @param requirement
      * @return
      */
-    @PostMapping
-    public int addReqs(Requirement requirement){
+    @PostMapping(value="/addReqs")
+    public int addReqs(@RequestBody Requirement requirement){
 
 //        方式1
         return Res.getSqlSessionFactory().openSession().insert("reqs.dao.RequirementMapper.insert",requirement);

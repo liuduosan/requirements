@@ -13,6 +13,10 @@ public class Main {
         System.out.println(1111111111);
         SqlSessionFactory sqlSessionFactory = Res.getSqlSessionFactory();
         SqlSession sqlSession = sqlSessionFactory.openSession();
+        Requirement requirement = new Requirement();
+        requirement.setId(2);
+        sqlSession.insert("reqs.dao.RequirementMapper.insert",requirement);
+        sqlSession.commit();
         System.out.println(sqlSession.getClass());
 //        Requirement requirement = sqlSession.selectOne("reqs.dao.RequirementMapper.selectByPrimaryKey",1);
 //        System.out.println(requirement.getId());

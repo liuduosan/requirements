@@ -15,6 +15,8 @@ public class Requirement {
 
     private String connecttype;
 
+    private String connecttypevalue;
+
     public Integer getId() {
         return id;
     }
@@ -69,5 +71,13 @@ public class Requirement {
 
     public void setConnecttype(String connecttype) {
         this.connecttype = connecttype == null ? null : connecttype.trim();
+    }
+
+    public String getConnecttypevalue() {
+        return connecttypevalue;
+    }
+
+    public void setConnecttypevalue(String connecttypevalue) {
+        this.connecttypevalue = connecttypevalue;
     }
 }

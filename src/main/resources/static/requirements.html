@@ -9,6 +9,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
   <title>需求反馈记录</title>
 	 <script type="text/javascript">
+	 	//1 —— 控制显示提示文字
 		 function showTip(){
 		 	var connectTypes = document.getElementsByName("connectType");
 		 	if(connectTypes.length>0){
@@ -20,6 +21,8 @@
 		 	}
 		 	document.getElementById("tips").style.display = "none";
 		 }
+
+		 // 2 —— ajax方式提交表单
 		 function loadXMLDoc()
 		{
 		var xmlhttp;
@@ -41,9 +44,39 @@
 		xmlhttp.open("POST","/reqs/addReqs",true);
 		xmlhttp.setRequestHeader("Content-type","application/json;charset=utf-8");
 		shortDesc = document.getElementById("shortDesc").value;
-		var data = "{\"shortDesc\":\""+shortDesc+"\"}"
+		detail = document.getElementById("detail").value;
+		dept = document.getElementById("dept").value;
+		puter = document.getElementById("puter").value;
+		connectType = document.getElementById("connectType").value;
+		connectTypeValue = document.getElementById("connectTypeValue").value;
+		if(dept=="0"){
+			alert("请选择您所在部门");
+			return false;
+		}
+		if(connectType=="0"){
+			alert("请选择您的联系方式");
+			return false;
+		}
+
+		var data = "{\"shortDesc\":\""+shortDesc+"\","+
+					"\"detail\":\""+detail+"\","+
+					"\"dept\":\""+dept+"\","+
+					"\"puter\":\""+puter+"\","+
+					"\"connecttype\":\""+connectType+"\","+
+					"\"connecttypevalue\":\""+connectTypeValue+"\"}"+
 		console.log(data)
 		xmlhttp.send(data);
+		}
+
+		// 3 ——
+		function check(){
+			onlineTime = document.getElementById("onlineTime").value;
+			var onlineTimeToInt = parseInt(onlineTime)
+			if(onlineTime>0 && onlineTime<61){
+				return true;
+			}
+			alert("\"希望多少天内上线\"只能输入不大于60的正整数");
+			return false;
 		}
 	 </script>
  </head>
@@ -56,8 +89,8 @@
 <!--
 		<div><strong>上传图片：</strong><input type="file" name="" ><br/>&nbsp;</div>
  -->
-		
-		
+
+	    <div><strong>希望多少天内上线：</strong><input id="onlineTime" type="text" name="" placeholder="只能输入不大于60的正整数" onkeyup="check()"><br/>&nbsp;</div>
 		<div><strong>提出人部门：</strong><select  id="dept" name="">
 			<option value="0" selected>请选择</option>
 			<option value="1" >客服</option>
@@ -68,14 +101,14 @@
 		</select><br/>&nbsp;</div>
 		<div><strong>提出人：</strong><input id="puter" type="text" name="" ><br/>&nbsp;</div>
 		<div><strong>提出人联系方式：</strong>
-			<select name="connectType" onchange="showTip()">
+			<select id="connectType" name="connectType" onchange="showTip()">
 				<option value="0" selected>请选择</option>
 				<option value="1">微信号</option>
 				<option value="2">邮箱</option>
-			</select>&nbsp;<input  id="connectType" type="text" name=""><br/>&nbsp;
+				</select>&nbsp;<input  id="connectTypeValue" type="text" name=""><br/>&nbsp;
 			<div id="tips" style="color:red;display: none;">注意：您填写的微信号，必须关注“快洁帮”公众号，否则将无法接受消息通知</div>
 		</div>
-		<div><input type="button" onclick="loadXMLDoc()"></div>
+		<div style="margin-top: 10px;"><input type="button" onclick="loadXMLDoc()" value="确定"></div>
   </div>
 
  </body>

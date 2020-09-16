@@ -1,5 +1,7 @@
 package reqs.vo;
 
+import java.util.Date;
+
 public class Requirement {
     private Integer id;
 
@@ -18,6 +20,8 @@ public class Requirement {
     private String connecttype;
 
     private String connecttypevalue;
+
+    private Date ctime;
 
     public Integer getId() {
         return id;
@@ -41,6 +45,14 @@ public class Requirement {
 
     public void setDetail(String detail) {
         this.detail = detail == null ? null : detail.trim();
+    }
+
+    public String getOnlinetime() {
+        return onlinetime;
+    }
+
+    public void setOnlinetime(String onlinetime) {
+        this.onlinetime = onlinetime == null ? null : onlinetime.trim();
     }
 
     public String getImg() {
@@ -80,14 +92,14 @@ public class Requirement {
     }
 
     public void setConnecttypevalue(String connecttypevalue) {
-        this.connecttypevalue = connecttypevalue;
+        this.connecttypevalue = connecttypevalue == null ? null : connecttypevalue.trim();
     }
 
-    public String getOnlinetime() {
-        return onlinetime;
+    public Date getCtime() {
+        return ctime;
     }
 
-    public void setOnlinetime(String onlinetime) {
-        this.onlinetime = onlinetime;
+    public void setCtime(Date ctime) {
+        this.ctime = ctime;
     }
 }

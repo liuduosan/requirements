@@ -17,7 +17,7 @@
         </environment>
     </environments>
     <mappers>
-        <mapper resource="mapper/RequirementMapper.xml"/>
+        <mapper resource="mapper/mapper/RequirementMapper.xml"/>
     </mappers>
     <!--<bean id="mapperScannerConfig" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="com.adu.spring_test.mybatis.dao" />

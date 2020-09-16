@@ -1,6 +1,7 @@
 package reqs.vo;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class RequirementExample {
@@ -304,6 +305,76 @@ public class RequirementExample {
             return (Criteria) this;
         }
 
+        public Criteria andOnlinetimeIsNull() {
+            addCriterion("onlineTime is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOnlinetimeIsNotNull() {
+            addCriterion("onlineTime is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOnlinetimeEqualTo(String value) {
+            addCriterion("onlineTime =", value, "onlinetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andOnlinetimeNotEqualTo(String value) {
+            addCriterion("onlineTime <>", value, "onlinetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andOnlinetimeGreaterThan(String value) {
+            addCriterion("onlineTime >", value, "onlinetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andOnlinetimeGreaterThanOrEqualTo(String value) {
+            addCriterion("onlineTime >=", value, "onlinetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andOnlinetimeLessThan(String value) {
+            addCriterion("onlineTime <", value, "onlinetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andOnlinetimeLessThanOrEqualTo(String value) {
+            addCriterion("onlineTime <=", value, "onlinetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andOnlinetimeLike(String value) {
+            addCriterion("onlineTime like", value, "onlinetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andOnlinetimeNotLike(String value) {
+            addCriterion("onlineTime not like", value, "onlinetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andOnlinetimeIn(List<String> values) {
+            addCriterion("onlineTime in", values, "onlinetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andOnlinetimeNotIn(List<String> values) {
+            addCriterion("onlineTime not in", values, "onlinetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andOnlinetimeBetween(String value1, String value2) {
+            addCriterion("onlineTime between", value1, value2, "onlinetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andOnlinetimeNotBetween(String value1, String value2) {
+            addCriterion("onlineTime not between", value1, value2, "onlinetime");
+            return (Criteria) this;
+        }
+
         public Criteria andImgIsNull() {
             addCriterion("img is null");
             return (Criteria) this;
@@ -581,6 +652,136 @@ public class RequirementExample {
 
         public Criteria andConnecttypeNotBetween(String value1, String value2) {
             addCriterion("connectType not between", value1, value2, "connecttype");
+            return (Criteria) this;
+        }
+
+        public Criteria andConnecttypevalueIsNull() {
+            addCriterion("connectTypeValue is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andConnecttypevalueIsNotNull() {
+            addCriterion("connectTypeValue is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andConnecttypevalueEqualTo(String value) {
+            addCriterion("connectTypeValue =", value, "connecttypevalue");
+            return (Criteria) this;
+        }
+
+        public Criteria andConnecttypevalueNotEqualTo(String value) {
+            addCriterion("connectTypeValue <>", value, "connecttypevalue");
+            return (Criteria) this;
+        }
+
+        public Criteria andConnecttypevalueGreaterThan(String value) {
+            addCriterion("connectTypeValue >", value, "connecttypevalue");
+            return (Criteria) this;
+        }
+
+        public Criteria andConnecttypevalueGreaterThanOrEqualTo(String value) {
+            addCriterion("connectTypeValue >=", value, "connecttypevalue");
+            return (Criteria) this;
+        }
+
+        public Criteria andConnecttypevalueLessThan(String value) {
+            addCriterion("connectTypeValue <", value, "connecttypevalue");
+            return (Criteria) this;
+        }
+
+        public Criteria andConnecttypevalueLessThanOrEqualTo(String value) {
+            addCriterion("connectTypeValue <=", value, "connecttypevalue");
+            return (Criteria) this;
+        }
+
+        public Criteria andConnecttypevalueLike(String value) {
+            addCriterion("connectTypeValue like", value, "connecttypevalue");
+            return (Criteria) this;
+        }
+
+        public Criteria andConnecttypevalueNotLike(String value) {
+            addCriterion("connectTypeValue not like", value, "connecttypevalue");
+            return (Criteria) this;
+        }
+
+        public Criteria andConnecttypevalueIn(List<String> values) {
+            addCriterion("connectTypeValue in", values, "connecttypevalue");
+            return (Criteria) this;
+        }
+
+        public Criteria andConnecttypevalueNotIn(List<String> values) {
+            addCriterion("connectTypeValue not in", values, "connecttypevalue");
+            return (Criteria) this;
+        }
+
+        public Criteria andConnecttypevalueBetween(String value1, String value2) {
+            addCriterion("connectTypeValue between", value1, value2, "connecttypevalue");
+            return (Criteria) this;
+        }
+
+        public Criteria andConnecttypevalueNotBetween(String value1, String value2) {
+            addCriterion("connectTypeValue not between", value1, value2, "connecttypevalue");
+            return (Criteria) this;
+        }
+
+        public Criteria andCtimeIsNull() {
+            addCriterion("cTime is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCtimeIsNotNull() {
+            addCriterion("cTime is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCtimeEqualTo(Date value) {
+            addCriterion("cTime =", value, "ctime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCtimeNotEqualTo(Date value) {
+            addCriterion("cTime <>", value, "ctime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCtimeGreaterThan(Date value) {
+            addCriterion("cTime >", value, "ctime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCtimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("cTime >=", value, "ctime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCtimeLessThan(Date value) {
+            addCriterion("cTime <", value, "ctime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCtimeLessThanOrEqualTo(Date value) {
+            addCriterion("cTime <=", value, "ctime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCtimeIn(List<Date> values) {
+            addCriterion("cTime in", values, "ctime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCtimeNotIn(List<Date> values) {
+            addCriterion("cTime not in", values, "ctime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCtimeBetween(Date value1, Date value2) {
+            addCriterion("cTime between", value1, value2, "ctime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCtimeNotBetween(Date value1, Date value2) {
+            addCriterion("cTime not between", value1, value2, "ctime");
             return (Criteria) this;
         }
     }

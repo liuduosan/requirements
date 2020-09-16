@@ -13,7 +13,7 @@
 		 function showTip(){
 		 	var connectTypes = document.getElementsByName("connectType");
 		 	if(connectTypes.length>0){
-		 		if(connectTypes[0].value==1){
+		 		if(connectTypes[0].value==2){
 		 			// 显示联系方式为微信的相关提示
 		 			document.getElementById("tips").style.display = "";
 		 			return;
@@ -25,6 +25,8 @@
 		 // 2 —— ajax方式提交表单
 		 function loadXMLDoc()
 		{
+
+
 		var xmlhttp;
 		if (window.XMLHttpRequest)
 		  {// code for IE7+, Firefox, Chrome, Opera, Safari
@@ -40,7 +42,13 @@
 			{
 				// debug信息
 				//document.getElementById("server_response_txt").innerHTML=xmlhttp.responseText;
-				alert("已提交成功！请耐心等待研发中心确认及反馈。 ")
+				if(xmlhttp.responseText==3){
+					console.log(xmlhttp.responseText);
+					alert("很抱歉，您今天已经提交过工单了，请勿重复提交，谢谢配合。 ");
+					return false;
+				}
+				alert("已提交成功！请耐心等待研发中心确认及反馈。 ");
+
 			}
 		  }
 		xmlhttp.open("POST","/reqs/addReqs",true);
@@ -82,14 +90,19 @@
 			return false;
 		}
 
+		var f = confirm("温馨小提示：每人每天只可提交一次，是否继续提交？");
+		if(f==false){
+			return f;
+		}
+
 		var data = "{\"shortDesc\":\""+shortDesc+"\","+
 					"\"detail\":\""+detail+"\","+
 					"\"dept\":\""+dept+"\","+
 					"\"onlinetime\":\""+onlineTime+"\","+
 					"\"puter\":\""+puter+"\","+
 					"\"connecttype\":\""+connectType+"\","+
-					"\"connecttypevalue\":\""+connectTypeValue+"\"}"+
-		console.log(data)
+					"\"connecttypevalue\":\""+connectTypeValue+"\"}"
+
 		xmlhttp.send(data);
 		}
 
@@ -126,7 +139,7 @@
 		<div>上传图片：<input type="file" name="" ><br/>&nbsp;</div>
  -->
 
-	    <div class="first_grade">希望多久上线：
+	    <div class="first_grade">希望多久可用：
 			<select id="onlineTime">
 				<option value="0" selected>请选择</option>
 				<option value="1" >1天</option>
@@ -151,13 +164,13 @@
 		<div class="first_grade">联系方式：
 			<select id="connectType" name="connectType" onchange="showTip()" style="height: 22px">
 				<option value="0" selected>请选择</option>
-				<option value="1">微信号</option>
-				<option value="2">邮箱</option>
+				<option value="1">邮箱</option>
+				<option value="2">微信号</option>
 				</select>&nbsp;<input  id="connectTypeValue" type="text" name="" maxlength="20" style="width: 150px"><br/>&nbsp;
-			<div id="tips" style="color:red;display: none;">注意：您填写的微信号，必须关注“快洁帮”公众号，否则将无法接受消息通知</div>
+			<div id="tips" style="color:red;display: none;">温馨小提示：您填写的是微信号（英文字符串，非手机号），而且必须关注“快洁帮”公众号，否则将无法接受消息通知。</div>
 		</div>
 		<div style="text-align: center"><br />
-			<input type="button" onclick="loadXMLDoc()" value="提交" style="width: 100px;font-weight: bold">
+			<input id="sButton" type="button" onclick="loadXMLDoc()" value="提交" style="width: 100px;font-weight: bold">
 			<input type="button" onclick="refresh()" value="重填" style="width: 100px;font-weight: bold">
 		</div>
 	    <div id="server_response_txt"></div>

@@ -1,15 +1,10 @@
 package reqs.dao;
 
 import java.util.List;
-
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Component;
 import reqs.vo.Requirement;
 import reqs.vo.RequirementExample;
 
-@Component(value="requirementMapper")
-@Mapper
 public interface RequirementMapper {
     int countByExample(RequirementExample example);
 

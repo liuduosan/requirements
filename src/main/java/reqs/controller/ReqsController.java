@@ -2,14 +2,13 @@ package reqs.controller;
 
 //import org.mybatis.spring.annotation.MapperScan;
 import org.apache.ibatis.session.SqlSession;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.*;
-import reqs.dao.RequirementMapper;
 import reqs.utils.Res;
 import reqs.vo.Requirement;
 import reqs.vo.RequirementExample;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @RestController("/reqs")
@@ -28,6 +27,19 @@ public class ReqsController {
 
 //        方式1 原生
         SqlSession sqlSession = Res.getSqlSessionFactory().openSession();
+        // 判断该用户当天是否已经提交需求
+        RequirementExample requirementExample = new RequirementExample();
+        // 获取当天凌晨00:00：00时间
+        Calendar calendar1 = Calendar.getInstance();
+        calendar1.set(calendar1.get(Calendar.YEAR), calendar1.get(Calendar.MONTH), calendar1.get(Calendar.DAY_OF_MONTH),
+                0, 0, 0);
+        Date ealierTime = calendar1.getTime();
+        requirementExample.createCriteria().andPuterEqualTo(requirement.getPuter()).andCtimeGreaterThan(ealierTime);
+        Requirement exsitRequirement = sqlSession.selectOne("reqs.dao.RequirementMapper.selectByExample",requirementExample);
+        if(exsitRequirement!=null){
+            return 3;
+        }
+        requirement.setCtime(calendar1.getTime());
         int result =  sqlSession.insert("reqs.dao.RequirementMapper.insert",requirement);
 
         sqlSession.commit();

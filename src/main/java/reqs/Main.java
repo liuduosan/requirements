@@ -14,7 +14,7 @@ public class Main {
         SqlSessionFactory sqlSessionFactory = Res.getSqlSessionFactory();
         SqlSession sqlSession = sqlSessionFactory.openSession();
         Requirement requirement = new Requirement();
-        requirement.setId(2);
+        requirement.setId(22);
         sqlSession.insert("reqs.dao.RequirementMapper.insert",requirement);
         sqlSession.commit();
         System.out.println(sqlSession.getClass());

@@ -7,6 +7,8 @@ public class Requirement {
 
     private String detail;
 
+    private String onlinetime;
+
     private String img;
 
     private String dept;
@@ -79,5 +81,13 @@ public class Requirement {
 
     public void setConnecttypevalue(String connecttypevalue) {
         this.connecttypevalue = connecttypevalue;
+    }
+
+    public String getOnlinetime() {
+        return onlinetime;
+    }
+
+    public void setOnlinetime(String onlinetime) {
+        this.onlinetime = onlinetime;
     }
 }

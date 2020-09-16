@@ -7,7 +7,7 @@
   <meta name="Keywords" content="">
   <meta name="Description" content="">
   <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <title>需求反馈记录</title>
+  <title>需求工单</title>
 	 <script type="text/javascript">
 	 	//1 —— 控制显示提示文字
 		 function showTip(){
@@ -38,19 +38,43 @@
 		  {
 		  if (xmlhttp.readyState==4 && xmlhttp.status==200)
 			{
-			document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
+				// debug信息
+				//document.getElementById("server_response_txt").innerHTML=xmlhttp.responseText;
+				alert("已提交成功！请耐心等待研发中心确认及反馈。 ")
 			}
 		  }
 		xmlhttp.open("POST","/reqs/addReqs",true);
 		xmlhttp.setRequestHeader("Content-type","application/json;charset=utf-8");
 		shortDesc = document.getElementById("shortDesc").value;
 		detail = document.getElementById("detail").value;
+		onlineTime = document.getElementById("onlineTime").value;
 		dept = document.getElementById("dept").value;
 		puter = document.getElementById("puter").value;
 		connectType = document.getElementById("connectType").value;
 		connectTypeValue = document.getElementById("connectTypeValue").value;
+
+		if(shortDesc==""){
+			alert("\"标题\"不能为空");
+			return false;
+		}
+		if(detail==""){
+			alert("\"内容\"不能为空");
+			return false;
+		}
+		if(onlineTime=="0"){
+			alert("请选择\"希望多久上线\"");
+			return false;
+		}
+		if(puter==""){
+			alert("\"提出人\"不能为空");
+			return false;
+		}
 		if(dept=="0"){
 			alert("请选择您所在部门");
+			return false;
+		}
+		if(connectTypeValue==""){
+			alert("\"联系方式\"不能为空");
 			return false;
 		}
 		if(connectType=="0"){
@@ -61,6 +85,7 @@
 		var data = "{\"shortDesc\":\""+shortDesc+"\","+
 					"\"detail\":\""+detail+"\","+
 					"\"dept\":\""+dept+"\","+
+					"\"onlinetime\":\""+onlineTime+"\","+
 					"\"puter\":\""+puter+"\","+
 					"\"connecttype\":\""+connectType+"\","+
 					"\"connecttypevalue\":\""+connectTypeValue+"\"}"+
@@ -68,47 +93,74 @@
 		xmlhttp.send(data);
 		}
 
-		// 3 ——
-		function check(){
-			onlineTime = document.getElementById("onlineTime").value;
-			var onlineTimeToInt = parseInt(onlineTime)
-			if(onlineTime>0 && onlineTime<61){
-				return true;
-			}
-			alert("\"希望多少天内上线\"只能输入不大于60的正整数");
-			return false;
+		// 3 —— 清空内容
+		function refresh(){
+			document.getElementById("shortDesc").value="";
+			document.getElementById("detail").value="";
+			document.getElementById("onlineTime").value="0";
+			document.getElementById("dept").value="0";
+			document.getElementById("puter").value="";
+			document.getElementById("connectType").value="0";
+			document.getElementById("connectTypeValue").value="";
 		}
 	 </script>
+ 	<style type="text/css">
+		.first_grade{
+			width: 100%;
+
+			font-family: 黑体;
+		}
+		body{
+			background: azure;
+			font-weight: bold;
+		}
+	</style>
  </head>
  <body>
 
   <div style="width:100%;">
-  		<div><h2>需求反馈记录</h2></div>
-		<div><strong>需求简写：</strong><input id="shortDesc" type="text" name="" maxlength=10 ><br/>&nbsp;</div>
-		<div><strong>详细说明：</strong><textarea id="detail" name="" rows="10" cols=""  maxlength=300></textarea><br/>&nbsp;</div>
+  		<div style="text-align: center;font-family: 黑体;font-size: 28px;margin-top: 10px;">需求工单</div>
+		<div class="first_grade" style="margin-top: 10px;"><br />标题：<input id="shortDesc" type="text" name="" maxlength=10 style="width: 80%"><br/>&nbsp;</div>
+		<div class="first_grade">内容：<textarea id="detail" name="" rows="10" cols=""  maxlength=300 style="width: 80%"></textarea><br/>&nbsp;</div>
 <!--
-		<div><strong>上传图片：</strong><input type="file" name="" ><br/>&nbsp;</div>
+		<div>上传图片：<input type="file" name="" ><br/>&nbsp;</div>
  -->
 
-	    <div><strong>希望多少天内上线：</strong><input id="onlineTime" type="text" name="" placeholder="只能输入不大于60的正整数" onkeyup="check()"><br/>&nbsp;</div>
-		<div><strong>提出人部门：</strong><select  id="dept" name="">
-			<option value="0" selected>请选择</option>
-			<option value="1" >客服</option>
-			<option value="2" >培训</option>
-			<option value="3" >财务</option>
-			<option value="4" >行政</option>
-			<option value="5" >其他部门</option>
-		</select><br/>&nbsp;</div>
-		<div><strong>提出人：</strong><input id="puter" type="text" name="" ><br/>&nbsp;</div>
-		<div><strong>提出人联系方式：</strong>
-			<select id="connectType" name="connectType" onchange="showTip()">
+	    <div class="first_grade">希望多久上线：
+			<select id="onlineTime">
+				<option value="0" selected>请选择</option>
+				<option value="1" >1天</option>
+				<option value="2" >3天</option>
+				<option value="3" >1周</option>
+				<option value="4" >2周</option>
+				<option value="5" >4周</option>
+				<option value="6" >8周</option>
+				<option value="7" >不急</option>
+			</select><br/>
+		</div>
+		<div class="first_grade"><br/>提出人员：<input id="puter" type="text" name="" maxlength="8" style="width: 70px"><br/>&nbsp;</div>
+	    <div class="first_grade">所在部门：<select  id="dept" name=""  style="height: 22px">
+		  <option value="0" selected>请选择</option>
+		  <option value="1" >市场</option>
+		  <option value="2" >客服</option>
+		  <option value="3" >培训</option>
+		  <option value="4" >财务</option>
+		  <option value="5" >行政</option>
+		  <option value="6" >其他</option>
+	 	 </select><br/>&nbsp;</div>
+		<div class="first_grade">联系方式：
+			<select id="connectType" name="connectType" onchange="showTip()" style="height: 22px">
 				<option value="0" selected>请选择</option>
 				<option value="1">微信号</option>
 				<option value="2">邮箱</option>
-				</select>&nbsp;<input  id="connectTypeValue" type="text" name=""><br/>&nbsp;
+				</select>&nbsp;<input  id="connectTypeValue" type="text" name="" maxlength="20" style="width: 150px"><br/>&nbsp;
 			<div id="tips" style="color:red;display: none;">注意：您填写的微信号，必须关注“快洁帮”公众号，否则将无法接受消息通知</div>
 		</div>
-		<div style="margin-top: 10px;"><input type="button" onclick="loadXMLDoc()" value="确定"></div>
+		<div style="text-align: center"><br />
+			<input type="button" onclick="loadXMLDoc()" value="提交" style="width: 100px;font-weight: bold">
+			<input type="button" onclick="refresh()" value="重填" style="width: 100px;font-weight: bold">
+		</div>
+	    <div id="server_response_txt"></div>
   </div>
 
  </body>

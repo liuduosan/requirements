@@ -5,6 +5,7 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="short_desc" property="shortDesc" jdbcType="VARCHAR" />
     <result column="detail" property="detail" jdbcType="VARCHAR" />
+    <result column="onlineTime" property="onlinetime" jdbcType="VARCHAR" />
     <result column="img" property="img" jdbcType="VARCHAR" />
     <result column="dept" property="dept" jdbcType="CHAR" />
     <result column="puter" property="puter" jdbcType="VARCHAR" />
@@ -70,7 +71,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, short_desc, detail, img, dept, puter, connectType, connectTypeValue
+    id, short_desc, detail,onlineTime, img, dept, puter, connectType, connectTypeValue
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="reqs.vo.RequirementExample" >
     select
@@ -104,10 +105,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="reqs.vo.Requirement" >
-    insert into requirement (id, short_desc, detail, 
+    insert into requirement (id, short_desc, detail, onlineTime,
       img, dept, puter, connectType, connectTypeValue
       )
-    values (#{id,jdbcType=INTEGER}, #{shortDesc,jdbcType=VARCHAR}, #{detail,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{shortDesc,jdbcType=VARCHAR}, #{detail,jdbcType=VARCHAR}, #{onlinetime,jdbcType=VARCHAR},
       #{img,jdbcType=VARCHAR}, #{dept,jdbcType=CHAR}, #{puter,jdbcType=VARCHAR}, #{connecttype,jdbcType=VARCHAR}, #{connecttypevalue,jdbcType=VARCHAR}
       )
   </insert>
@@ -137,6 +138,8 @@
       </if>
       <if test="connecttypevalue != null" >
         connectTypeValue,
+      </if><if test="onlinetime != null" >
+         onlineTime,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -163,6 +166,8 @@
       </if>
       <if test="connecttypevalue != null" >
         #{connecttypevalue,jdbcType=VARCHAR},
+      </if><if test="onlinetime != null" >
+        #{onlinetime,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -198,6 +203,8 @@
       </if>
       <if test="record.connecttypevalue != null" >
         connectTypeValue = #{record.connecttypevalue,jdbcType=VARCHAR},
+      </if><if test="record.onlinetime != null" >
+        onlineTime = #{record.onlinetime,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -212,8 +219,9 @@
       img = #{record.img,jdbcType=VARCHAR},
       dept = #{record.dept,jdbcType=CHAR},
       puter = #{record.puter,jdbcType=VARCHAR},
-      connectType = #{record.connecttype,jdbcType=VARCHAR}
-      connectTypeValue = #{record.connecttypevalue,jdbcType=VARCHAR}
+      connectType = #{record.connecttype,jdbcType=VARCHAR},
+      connectTypeValue = #{record.connecttypevalue,jdbcType=VARCHAR},
+      onlineTime = #{record.onlinetime,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -241,6 +249,8 @@
       </if>
       <if test="connecttypevalue != null" >
         connectTypeValue = #{connecttypevalue,jdbcType=VARCHAR},
+      </if><if test="onlinetime != null" >
+        onlineTime = #{onlinetime,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -253,7 +263,8 @@
       dept = #{dept,jdbcType=CHAR},
       puter = #{puter,jdbcType=VARCHAR},
       connectType = #{connecttype,jdbcType=VARCHAR},
-      connectTypeValue = #{connecttypevalue,jdbcType=VARCHAR}
+      connectTypeValue = #{connecttypevalue,jdbcType=VARCHAR},
+      onlineTime = #{onlinetime,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

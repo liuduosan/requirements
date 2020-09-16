@@ -35,11 +35,11 @@ public class ReqsController {
                 0, 0, 0);
         Date ealierTime = calendar1.getTime();
         requirementExample.createCriteria().andPuterEqualTo(requirement.getPuter()).andCtimeGreaterThan(ealierTime);
-        Requirement exsitRequirement = sqlSession.selectOne("reqs.dao.RequirementMapper.selectByExample",requirementExample);
-        if(exsitRequirement!=null){
+        List<Requirement> exsitRequirement = sqlSession.selectList("reqs.dao.RequirementMapper.selectByExample",requirementExample);
+        if(exsitRequirement.size()==3){
             return 3;
         }
-        requirement.setCtime(calendar1.getTime());
+        requirement.setCtime(new Date());
         int result =  sqlSession.insert("reqs.dao.RequirementMapper.insert",requirement);
 
         sqlSession.commit();

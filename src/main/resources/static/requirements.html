@@ -26,7 +26,18 @@
 		 function loadXMLDoc()
 		{
 
+		if(isLogin==false){
+			alert("请先登录");
+			// 显示登录浮层
 
+			document.getElementById("main_div").style.display = "none";
+			document.getElementById('login_div').style.display='';
+			 document.getElementById('login_div_box').style.display=''
+
+			document.getElementById("login_div").style.display = "";
+
+			return false;
+		}
 		var xmlhttp;
 		if (window.XMLHttpRequest)
 		  {// code for IE7+, Firefox, Chrome, Opera, Safari
@@ -44,7 +55,7 @@
 				//document.getElementById("server_response_txt").innerHTML=xmlhttp.responseText;
 				if(xmlhttp.responseText==3){
 					console.log(xmlhttp.responseText);
-					alert("每人每天只能提交一次工单，您今天已经提交过工单，请明日再试~");
+					alert("每人每天只能提交三次工单，您今天已经提交超过三次，请明日再试~");
 					return false;
 				}
 				alert("已提交成功！请耐心等待研发中心确认及反馈。 ");
@@ -90,10 +101,12 @@
 			return false;
 		}
 
-		var f = confirm("温馨小提示：每人每天只可提交一次，是否继续提交？");
+		/*
+		var f = confirm("温馨小提示：每人每天只可提交三次，是否继续提交？");
 		if(f==false){
 			return f;
 		}
+		*/
 
 		var data = "{\"shortDesc\":\""+shortDesc+"\","+
 					"\"detail\":\""+detail+"\","+
@@ -116,6 +129,15 @@
 			document.getElementById("connectType").value="0";
 			document.getElementById("connectTypeValue").value="";
 		}
+
+		// 4 —— 登录
+
+		var isLogin = true;
+		function hide(){
+			 document.getElementById('login_div').style.display='none';
+			 document.getElementById('login_div_box').style.display='none'
+			 document.getElementById("main_div").style.display = "";
+		}
 	 </script>
  	<style type="text/css">
 		.first_grade{
@@ -126,12 +148,21 @@
 		body{
 			background: azure;
 			font-weight: bold;
+			margin: 0px;
+		}
+		.login_div{
+			background: aquamarine;
+			width: 80%;
+			height: 150px;
+			text-align: center;
+			margin: 0px auto;
+			padding-top: 20px;
 		}
 	</style>
  </head>
  <body>
 
-  <div style="width:100%;">
+  <div style="width:100%;height: 100%" id="main_div">
   		<div style="text-align: center;font-family: 黑体;font-size: 28px;margin-top: 10px;">需求工单</div>
 		<div class="first_grade" style="margin-top: 10px;"><br />标题：<input id="shortDesc" type="text" name="" maxlength=10 style="width: 80%"><br/>&nbsp;</div>
 		<div class="first_grade">内容：<textarea id="detail" name="" rows="10" cols=""  maxlength=300 style="width: 80%"></textarea><br/>&nbsp;</div>
@@ -139,7 +170,7 @@
 		<div>上传图片：<input type="file" name="" ><br/>&nbsp;</div>
  -->
 
-	    <div class="first_grade">希望多久可用：
+	    <div class="first_grade">希望多久上线：
 			<select id="onlineTime">
 				<option value="0" selected>请选择</option>
 				<option value="1" >1天</option>
@@ -170,10 +201,24 @@
 			<div id="tips" style="color:red;display: none;">温馨小提示：您填写的是微信号（英文字符串，非手机号），而且必须关注“快洁帮”公众号，否则将无法接受消息通知。</div>
 		</div>
 		<div style="text-align: center"><br />
-			<input id="sButton" type="button" onclick="loadXMLDoc()" value="提交" style="width: 100px;font-weight: bold">
-			<input type="button" onclick="refresh()" value="重填" style="width: 100px;font-weight: bold">
+			<input id="sButton" type="button" onclick="loadXMLDoc()" value="提交" style="width: 100px;font-weight: bold;" >
+			<input type="button" onclick="refresh()" value="清空" style="width: 100px;font-weight: bold">
 		</div>
+	    <!-- Debug区域 -->
 	    <div id="server_response_txt"></div>
+
+
+  </div>
+
+  <!-- login -->
+  <div id="login_div_box" style="display:none;position: absolute;padding-top: 200px;width: 100%;text-align: center;height: 100%;background: antiquewhite;">
+	  <div id="login_div" class="login_div" >
+		  <span style="text-align: center">登录界面</span><br/><br/>
+		  <span>用户：<input id="username" style="width: 50%"></span><br/>
+		  <span>密码：<input id="password" type="password" style="width: 50%"></span><br/><br/>
+		  <input type="submit" value="登录">
+		  <input type="button" value="关闭" onclick="hide()">
+	  </div>
   </div>
 
  </body>

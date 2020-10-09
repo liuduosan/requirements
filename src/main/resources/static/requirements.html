@@ -9,6 +9,9 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
   <title>需求工单</title>
 	 <script type="text/javascript">
+
+	 	var isLogin = false;
+
 	 	//1 —— 控制显示提示文字
 		 function showTip(){
 		 	var connectTypes = document.getElementsByName("connectType");
@@ -34,7 +37,6 @@
 			document.getElementById('login_div').style.display='';
 			 document.getElementById('login_div_box').style.display=''
 
-			document.getElementById("login_div").style.display = "";
 
 			return false;
 		}
@@ -132,7 +134,58 @@
 
 		// 4 —— 登录
 
-		var isLogin = true;
+		function login(){
+
+			var xmlhttp_login;
+			if (window.XMLHttpRequest)
+			  {// code for IE7+, Firefox, Chrome, Opera, Safari
+			  xmlhttp_login=new XMLHttpRequest();
+			  }
+			else
+			  {// code for IE6, IE5
+			  xmlhttp_login=new ActiveXObject("Microsoft.XMLHTTP");
+			  }
+			xmlhttp_login.onreadystatechange=function()
+			  {
+			  if (xmlhttp_login.readyState==4 && xmlhttp_login.status==200)
+				{
+					// debug信息
+					//document.getElementById("server_response_txt_login").innerHTML=xmlhttp.responseText;
+					if(xmlhttp_login.responseText==0){
+						console.log(xmlhttp_login.responseText);
+						alert("登录失败");
+						return false;
+					}
+					alert("登录成功");
+					document.getElementById("main_div").style.display = "";
+					document.getElementById('login_div').style.display='none';
+					document.getElementById('login_div_box').style.display='none';
+					isLogin=true;
+					return true;
+
+				}
+			  }
+			xmlhttp_login.open("POST","/reqs/login",true);
+			xmlhttp_login.setRequestHeader("Content-type","application/json;charset=utf-8");
+
+			username = document.getElementById("username").value;
+			password = document.getElementById("password").value;
+
+
+			if(username==""){
+				alert("\"用户\"不能为空");
+				return false;
+			}
+			if(password==""){
+				alert("\"密码\"不能为空");
+				return false;
+			}
+
+			var login_data = "{\"username\":\""+username+"\","+
+					"\"password\":\""+password+"\"}"
+
+			xmlhttp_login.send(login_data);
+		}
 		function hide(){
 			 document.getElementById('login_div').style.display='none';
 			 document.getElementById('login_div_box').style.display='none'
@@ -206,6 +259,7 @@
 		</div>
 	    <!-- Debug区域 -->
 	    <div id="server_response_txt"></div>
+	    <div id="server_response_txt_login"></div>
 
 
   </div>
@@ -216,7 +270,7 @@
 		  <span style="text-align: center">登录界面</span><br/><br/>
 		  <span>用户：<input id="username" style="width: 50%"></span><br/>
 		  <span>密码：<input id="password" type="password" style="width: 50%"></span><br/><br/>
-		  <input type="submit" value="登录">
+		  <input type="submit" value="登录" onclick="login()">
 		  <input type="button" value="关闭" onclick="hide()">
 	  </div>
   </div>

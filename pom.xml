@@ -65,7 +65,7 @@
             </plugin>
             <!-- 添加mybatis 自动生成插件-->
 
-            <plugin>
+           <!-- <plugin>
 
                 <groupId>org.mybatis.generator</groupId>
 
@@ -77,7 +77,7 @@
 
                     <configurationFile>${basedir}/src/main/resources/generatorConfig.xml</configurationFile>
 
-                    <overwrite>true</overwrite>
+                    <overwrite>false</overwrite>
 
                     <verbose>true</verbose>
 
@@ -113,7 +113,7 @@
 
                 </dependencies>
 
-            </plugin>
+            </plugin>-->
         </plugins>
     </build>
 

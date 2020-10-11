@@ -18,7 +18,7 @@ import java.util.List;
 public class ReqsController {
     static HashMap<String,String> users=new HashMap<>();
     {
-        users.put("lt","Kjb12345");
+        users.put("lt","666666");
         users.put("ccb","547114");
         users.put("jzm","745123");
         users.put("dl","545571");
@@ -29,9 +29,9 @@ public class ReqsController {
         users.put("hjm","445474");
         users.put("hyl","544024");
         users.put("fl","785456");
-        users.put("lt","Kjb12345");
         users.put("julia","544572");//梁洪琼
         users.put("lyl","745145");
+        users.put("ljw","775145");
         users.put("may","544512");//李艳美
         users.put("qxp","751114");
         users.put("xxl","751214");
